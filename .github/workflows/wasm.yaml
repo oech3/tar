@@ -1,0 +1,20 @@
+on: [push, pull_request]
+
+name: wasm32
+
+env:
+  CARGO_INCREMENTAL: 0
+
+jobs:
+  build:
+    name: cargo build wasm32
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+      - name: cargo build
+        run: cargo build --target wasm32-wasip1
